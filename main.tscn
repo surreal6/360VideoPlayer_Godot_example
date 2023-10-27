@@ -1,0 +1,82 @@
+[gd_scene load_steps=15 format=3 uid="uid://cun0h6dvx74s8"]
+
+[ext_resource type="PackedScene" uid="uid://ddvdjhpw6c5w7" path="res://equi_2048.tscn" id="1_p3i1r"]
+[ext_resource type="Script" path="res://main.gd" id="1_rin2u"]
+[ext_resource type="PackedScene" uid="uid://njx823gyk04n" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_hand.tscn" id="1_uvyab"]
+[ext_resource type="PackedScene" uid="uid://raeeicvvindd" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_hand.tscn" id="2_8g04m"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="2_kxm72"]
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_aw624"]
+[ext_resource type="PackedScene" uid="uid://ctuer4t51hvwi" path="res://flat_screen.tscn" id="6_q5jph"]
+[ext_resource type="PackedScene" uid="uid://blrrru0e874wo" path="res://file_system_select_dir.tscn" id="8_3wyu6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_86rlt"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0utnx"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_86rlt")
+albedo_texture_force_srgb = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_qc31i"]
+resource_local_to_scene = true
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4xt2u"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4hfu"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_4xt2u")
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qdql2"]
+resource_local_to_scene = true
+size = Vector3(3, 2, 0.02)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_rin2u")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.548462, 1, 0)
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("1_uvyab")]
+
+[node name="FunctionPointer" parent="XROrigin3D/LeftController" instance=ExtResource("2_kxm72")]
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.555339, 1, 0)
+tracker = &"right_hand"
+
+[node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("2_8g04m")]
+
+[node name="FunctionPointer" parent="XROrigin3D/RightController" instance=ExtResource("2_kxm72")]
+
+[node name="StartXR" parent="." instance=ExtResource("6_aw624")]
+
+[node name="flat_screen" parent="." instance=ExtResource("6_q5jph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 4)
+
+[node name="equi_2048" parent="." instance=ExtResource("1_p3i1r")]
+
+[node name="FileSystemSelectDir" parent="." instance=ExtResource("8_3wyu6")]
+
+[node name="FileSystemWindow" parent="FileSystemSelectDir" index="0"]
+material = SubResource("StandardMaterial3D_0utnx")
+
+[node name="Screen" parent="FileSystemSelectDir/FileSystemWindow" index="1"]
+mesh = SubResource("QuadMesh_qc31i")
+surface_material_override/0 = SubResource("StandardMaterial3D_i4hfu")
+
+[node name="CollisionShape3D" parent="FileSystemSelectDir/FileSystemWindow/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_qdql2")
+
+[editable path="FileSystemSelectDir"]
+[editable path="FileSystemSelectDir/FileSystemWindow"]

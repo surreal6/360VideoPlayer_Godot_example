@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cao0yrckrq4v3"]
+
+[ext_resource type="Script" path="res://file_dialog.gd" id="1_k7cat"]
+
+[node name="FileDialogControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -552.0
+offset_bottom = -248.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k7cat")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File or Directory"
+size = Vector2i(600, 400)
+visible = true
+borderless = true
+always_on_top = true
+ok_button_text = "Open"
+file_mode = 3
+access = 2
+filters = PackedStringArray("*.ogv")
+show_hidden_files = true
+
+[connection signal="confirmed" from="FileDialog" to="." method="confirm_selection"]
+[connection signal="dir_selected" from="FileDialog" to="." method="on_dir_selected_trigger"]
+[connection signal="file_selected" from="FileDialog" to="." method="on_file_selected_signal"]
+[connection signal="gui_focus_changed" from="FileDialog" to="." method="_on_file_dialog_gui_focus_changed"]
+[connection signal="window_input" from="FileDialog" to="." method="_on_file_dialog_window_input"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://blrrru0e874wo"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_dqru0"]
+[ext_resource type="PackedScene" uid="uid://cao0yrckrq4v3" path="res://file_dialog.tscn" id="2_5lorg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3d2ng"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhgm1"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_3d2ng")
+albedo_texture_force_srgb = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_ix1ko"]
+resource_local_to_scene = true
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r3a26"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yceb"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_r3a26")
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nvrc6"]
+resource_local_to_scene = true
+size = Vector3(3, 2, 0.02)
+
+[node name="FileSystemSelectDir" type="Node3D"]
+
+[node name="FileSystemWindow" parent="." instance=ExtResource("1_dqru0")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.52035, 1.79265, 1.97591e-07)
+scene = ExtResource("2_5lorg")
+viewport_size = Vector2(600, 400)
+material = SubResource("StandardMaterial3D_xhgm1")
+transparent = 0
+
+[node name="Viewport" parent="FileSystemWindow" index="0"]
+transparent_bg = false
+size = Vector2i(600, 400)
+
+[node name="Screen" parent="FileSystemWindow" index="1"]
+mesh = SubResource("QuadMesh_ix1ko")
+surface_material_override/0 = SubResource("StandardMaterial3D_3yceb")
+
+[node name="StaticBody3D" parent="FileSystemWindow" index="2"]
+viewport_size = Vector2(600, 400)
+
+[node name="CollisionShape3D" parent="FileSystemWindow/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_nvrc6")
+
+[editable path="FileSystemWindow"]

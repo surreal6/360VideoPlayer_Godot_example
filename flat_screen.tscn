@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctuer4t51hvwi"]
+
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="1_r773o"]
+[ext_resource type="PackedScene" uid="uid://osdpb8mhns8h" path="res://video_player.tscn" id="2_7vcrn"]
+
+[node name="flat_screen" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -3.91764)
+
+[node name="screen" parent="." instance=ExtResource("1_r773o")]
+screen_size = Vector2(8, 4)
+enabled = false
+scene = ExtResource("2_7vcrn")
+viewport_size = Vector2(2048, 1024)
+update_mode = 2
+throttle_fps = 25.0
+transparent = 0
+unshaded = true

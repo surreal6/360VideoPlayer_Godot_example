@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddvdjhpw6c5w7"]
+
+[ext_resource type="PackedScene" uid="uid://c1110kef7mtp7" path="res://viewport_equirectangular.tscn" id="1_00lao"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n17mq"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aktp1"]
+resource_local_to_scene = true
+cull_mode = 2
+depth_draw_mode = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_n17mq")
+albedo_texture_force_srgb = true
+
+[node name="equi_2048" type="Node3D"]
+
+[node name="ViewportEquirectangular" parent="." instance=ExtResource("1_00lao")]
+material = SubResource("StandardMaterial3D_aktp1")
