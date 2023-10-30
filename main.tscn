@@ -22,13 +22,13 @@ albedo_texture_force_srgb = true
 resource_local_to_scene = true
 size = Vector2(3, 2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4xt2u"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_iuj8k"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4hfu"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qaoqg"]
 resource_local_to_scene = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_4xt2u")
+albedo_texture = SubResource("ViewportTexture_iuj8k")
 albedo_texture_force_srgb = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdql2"]
@@ -73,7 +73,7 @@ material = SubResource("StandardMaterial3D_0utnx")
 
 [node name="Screen" parent="FileSystemSelectDir/FileSystemWindow" index="1"]
 mesh = SubResource("QuadMesh_qc31i")
-surface_material_override/0 = SubResource("StandardMaterial3D_i4hfu")
+surface_material_override/0 = SubResource("StandardMaterial3D_qaoqg")
 
 [node name="CollisionShape3D" parent="FileSystemSelectDir/FileSystemWindow/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_qdql2")

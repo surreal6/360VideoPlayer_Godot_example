@@ -1,4 +1,5 @@
 extends Node
 
-var current_directory
+var currentDirectory
+var viewportTarget
 

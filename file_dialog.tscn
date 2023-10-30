@@ -26,7 +26,7 @@ filters = PackedStringArray("*.ogv")
 show_hidden_files = true
 
 [connection signal="confirmed" from="FileDialog" to="." method="confirm_selection"]
-[connection signal="dir_selected" from="FileDialog" to="." method="on_dir_selected_trigger"]
+[connection signal="dir_selected" from="FileDialog" to="." method="on_dir_selected_signal"]
 [connection signal="file_selected" from="FileDialog" to="." method="on_file_selected_signal"]
 [connection signal="gui_focus_changed" from="FileDialog" to="." method="_on_file_dialog_gui_focus_changed"]
 [connection signal="window_input" from="FileDialog" to="." method="_on_file_dialog_window_input"]
