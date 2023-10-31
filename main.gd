@@ -11,16 +11,26 @@ func _ready():
 	l_cont.connect("button_pressed", on_controller_button_pressed)
 
 func on_dir_selected(value):
-	print(value)
-	pass
-	
+	Globals.dir_contents(value)
+	$FileSystemSelectDir.queue_free()
+	await get_tree().create_timer(0.5).timeout
+	var videoPlayer360 = $equi_2048/ViewportEquirectangular.get_scene_instance()
+	var videoPlayerFlat = $flat_screen/screen.get_scene_instance()
+	videoPlayer360.loadStream(Globals.playlist[0])
+	videoPlayerFlat.loadStream(Globals.playlist[0])
+
 func on_controller_button_pressed(event):
-#	print(event)
+	var videoPlayer360 = $equi_2048/ViewportEquirectangular.get_scene_instance()
+	var videoPlayerFlat = $flat_screen/screen.get_scene_instance()
 	match event:
 		"ax_button":
-			pass
+			var stream = Globals.nextIndex()
+			videoPlayer360.loadStream(stream)
+			videoPlayerFlat.loadStream(stream)
 		"by_button":
-			pass
+			var stream = Globals.prevIndex()
+			videoPlayer360.loadStream(stream)
+			videoPlayerFlat.loadStream(stream)
 		"ax_touch":
 			pass
 		"by_touch":

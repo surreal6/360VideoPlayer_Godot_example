@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cun0h6dvx74s8"]
+[gd_scene load_steps=17 format=3 uid="uid://cun0h6dvx74s8"]
 
 [ext_resource type="PackedScene" uid="uid://ddvdjhpw6c5w7" path="res://equi_2048.tscn" id="1_p3i1r"]
 [ext_resource type="Script" path="res://main.gd" id="1_rin2u"]
@@ -8,6 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="6_aw624"]
 [ext_resource type="PackedScene" uid="uid://ctuer4t51hvwi" path="res://flat_screen.tscn" id="6_q5jph"]
 [ext_resource type="PackedScene" uid="uid://blrrru0e874wo" path="res://file_system_select_dir.tscn" id="8_3wyu6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n17mq"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aktp1"]
+resource_local_to_scene = true
+cull_mode = 2
+depth_draw_mode = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_n17mq")
+albedo_texture_force_srgb = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_86rlt"]
 viewport_path = NodePath("Viewport")
@@ -22,13 +33,13 @@ albedo_texture_force_srgb = true
 resource_local_to_scene = true
 size = Vector2(3, 2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_iuj8k"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i6ail"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qaoqg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk6wd"]
 resource_local_to_scene = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_iuj8k")
+albedo_texture = SubResource("ViewportTexture_i6ail")
 albedo_texture_force_srgb = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdql2"]
@@ -66,6 +77,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 4)
 
 [node name="equi_2048" parent="." instance=ExtResource("1_p3i1r")]
 
+[node name="ViewportEquirectangular" parent="equi_2048" index="0"]
+material = SubResource("StandardMaterial3D_aktp1")
+
 [node name="FileSystemSelectDir" parent="." instance=ExtResource("8_3wyu6")]
 
 [node name="FileSystemWindow" parent="FileSystemSelectDir" index="0"]
@@ -73,10 +87,12 @@ material = SubResource("StandardMaterial3D_0utnx")
 
 [node name="Screen" parent="FileSystemSelectDir/FileSystemWindow" index="1"]
 mesh = SubResource("QuadMesh_qc31i")
-surface_material_override/0 = SubResource("StandardMaterial3D_qaoqg")
+surface_material_override/0 = SubResource("StandardMaterial3D_vk6wd")
 
 [node name="CollisionShape3D" parent="FileSystemSelectDir/FileSystemWindow/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_qdql2")
 
+[editable path="flat_screen"]
+[editable path="equi_2048"]
 [editable path="FileSystemSelectDir"]
 [editable path="FileSystemSelectDir/FileSystemWindow"]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c1110kef7mtp7"]
 
 [ext_resource type="Script" path="res://viewport_equirectangular.gd" id="1_wvjm1"]
+[ext_resource type="PackedScene" uid="uid://osdpb8mhns8h" path="res://video_player.tscn" id="2_khplk"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ok5uq"]
 viewport_path = NodePath("Viewport")
@@ -13,27 +14,24 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_ok5uq")
 albedo_texture_force_srgb = true
 
-[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_1oawn"]
-resource_local_to_scene = true
-file = "res://videos/marylin_test_2048x1024.ogv"
-
 [sub_resource type="SphereMesh" id="SphereMesh_a5hlb"]
 radius = 50.0
 height = 100.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uvoiy"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x8o11"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iyt5u"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvye6"]
 resource_local_to_scene = true
 cull_mode = 2
 no_depth_test = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_uvoiy")
+albedo_texture = SubResource("ViewportTexture_x8o11")
 albedo_texture_force_srgb = true
 
 [node name="ViewportEquirectangular" type="Node3D"]
 script = ExtResource("1_wvjm1")
+scene = ExtResource("2_khplk")
 material = SubResource("StandardMaterial3D_notdn")
 alpha_scissor_threshold = 0.25
 unshaded = false
@@ -46,14 +44,6 @@ gui_embed_subwindows = true
 size = Vector2i(2048, 1024)
 render_target_update_mode = 1
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Viewport"]
-offset_right = 40.0
-offset_bottom = 40.0
-stream = SubResource("VideoStreamTheora_1oawn")
-autoplay = true
-
 [node name="Screen" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_a5hlb")
-surface_material_override/0 = SubResource("StandardMaterial3D_iyt5u")
-
-[connection signal="finished" from="Viewport/VideoStreamPlayer" to="Viewport/VideoStreamPlayer" method="play"]
+surface_material_override/0 = SubResource("StandardMaterial3D_vvye6")

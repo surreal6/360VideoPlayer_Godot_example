@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://osdpb8mhns8h"]
+[gd_scene load_steps=3 format=3 uid="uid://osdpb8mhns8h"]
+
+[ext_resource type="Script" path="res://video_player.gd" id="1_7wgul"]
 
 [sub_resource type="VideoStreamTheora" id="VideoStreamTheora_s7gec"]
 file = "res://videos/marylin_test_2048x1024.ogv"
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7wgul")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1
