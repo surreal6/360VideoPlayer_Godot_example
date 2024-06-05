@@ -33,13 +33,13 @@ albedo_texture_force_srgb = true
 resource_local_to_scene = true
 size = Vector2(3, 2)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i6ail"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_vxns0"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk6wd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55f7m"]
 resource_local_to_scene = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_i6ail")
+albedo_texture = SubResource("ViewportTexture_vxns0")
 albedo_texture_force_srgb = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qdql2"]
@@ -61,6 +61,7 @@ tracker = &"left_hand"
 [node name="LeftHand" parent="XROrigin3D/LeftController" instance=ExtResource("1_uvyab")]
 
 [node name="FunctionPointer" parent="XROrigin3D/LeftController" instance=ExtResource("2_kxm72")]
+double_click_action = ""
 
 [node name="RightController" type="XRController3D" parent="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.555339, 1, 0)
@@ -69,6 +70,7 @@ tracker = &"right_hand"
 [node name="RightHand" parent="XROrigin3D/RightController" instance=ExtResource("2_8g04m")]
 
 [node name="FunctionPointer" parent="XROrigin3D/RightController" instance=ExtResource("2_kxm72")]
+double_click_action = ""
 
 [node name="StartXR" parent="." instance=ExtResource("6_aw624")]
 
@@ -87,7 +89,7 @@ material = SubResource("StandardMaterial3D_0utnx")
 
 [node name="Screen" parent="FileSystemSelectDir/FileSystemWindow" index="1"]
 mesh = SubResource("QuadMesh_qc31i")
-surface_material_override/0 = SubResource("StandardMaterial3D_vk6wd")
+surface_material_override/0 = SubResource("StandardMaterial3D_55f7m")
 
 [node name="CollisionShape3D" parent="FileSystemSelectDir/FileSystemWindow/StaticBody3D" index="0"]
 shape = SubResource("BoxShape3D_qdql2")

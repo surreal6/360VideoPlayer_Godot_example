@@ -24,13 +24,15 @@ func on_controller_button_pressed(event):
 	var videoPlayerFlat = $flat_screen/screen.get_scene_instance()
 	match event:
 		"ax_button":
-			var stream = Globals.nextIndex()
-			videoPlayer360.loadStream(stream)
-			videoPlayerFlat.loadStream(stream)
+			if Globals.playlist.size() > 0:
+				var stream = Globals.nextIndex()
+				videoPlayer360.loadStream(stream)
+				videoPlayerFlat.loadStream(stream)
 		"by_button":
-			var stream = Globals.prevIndex()
-			videoPlayer360.loadStream(stream)
-			videoPlayerFlat.loadStream(stream)
+			if Globals.playlist.size() > 0:
+				var stream = Globals.prevIndex()
+				videoPlayer360.loadStream(stream)
+				videoPlayerFlat.loadStream(stream)
 		"ax_touch":
 			pass
 		"by_touch":
