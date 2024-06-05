@@ -7,6 +7,7 @@ func _ready():
 	var docs_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	
 	$FileDialog.current_path = docs_path
+	$FileDialog.set_filters(PackedStringArray(["*.ogv"]))
 
 func on_dir_selected_signal(value):
 	dir_selected.emit(value)
