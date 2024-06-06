@@ -1,5 +1,7 @@
 extends Node
 
+signal playlist_ready
+
 var viewportTarget
 var playlist := []
 var playListIndex := 0
@@ -17,6 +19,7 @@ func dir_contents(path):
 				if file_name.ends_with(".ogv"):
 					createVideoStreamTheora(path + "/" + file_name)
 			file_name = dir.get_next()
+		playlist_ready.emit()
 
 func createVideoStreamTheora(path):
 	var theoraResource = VideoStreamTheora.new()

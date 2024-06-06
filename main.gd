@@ -9,15 +9,28 @@ func _ready():
 	
 	r_cont.connect("button_pressed", on_controller_button_pressed)
 	l_cont.connect("button_pressed", on_controller_button_pressed)
+	
+	Globals.connect("playlist_ready", on_playlist_ready)
 
 func on_dir_selected(value):
+	print("holaaaaa", value)
 	Globals.dir_contents(value)
-	$FileSystemSelectDir.queue_free()
 	await get_tree().create_timer(0.5).timeout
-	var videoPlayer360 = $equi_2048/ViewportEquirectangular.get_scene_instance()
-	var videoPlayerFlat = $flat_screen/screen.get_scene_instance()
-	videoPlayer360.loadStream(Globals.playlist[0])
-	videoPlayerFlat.loadStream(Globals.playlist[0])
+	if Globals.playlist.size() > 0:
+		var videoPlayer360 = $equi_2048/ViewportEquirectangular.get_scene_instance()
+		var videoPlayerFlat = $flat_screen/screen.get_scene_instance()
+		videoPlayer360.loadStream(Globals.playlist[0])
+		videoPlayerFlat.loadStream(Globals.playlist[0])
+
+func on_playlist_ready():
+	print("playlist ready")
+	fileDialogViewport.scene_node.hide_file_dialog()
+	fileDialogViewport.scene_node.clear_file_list()
+	if Globals.playlist.size() > 0:
+		for file in Globals.playlist:
+			var array = file.get_file().rsplit("/")
+			var filename = array[array.size() - 1]
+			fileDialogViewport.scene_node.add_file_label(filename)
 
 func on_controller_button_pressed(event):
 	var videoPlayer360 = $equi_2048/ViewportEquirectangular.get_scene_instance()
