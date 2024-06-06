@@ -1,42 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1110kef7mtp7"]
+[gd_scene load_steps=6 format=3 uid="uid://c1110kef7mtp7"]
 
 [ext_resource type="Script" path="res://viewport_equirectangular.gd" id="1_wvjm1"]
 [ext_resource type="PackedScene" uid="uid://osdpb8mhns8h" path="res://video_player.tscn" id="2_khplk"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ok5uq"]
-viewport_path = NodePath("Viewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_notdn"]
-resource_local_to_scene = true
-cull_mode = 2
-no_depth_test = true
-shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_ok5uq")
-albedo_texture_force_srgb = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_a5hlb"]
 radius = 50.0
 height = 100.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_w8rhj"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lwciq"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mc5xk"]
-resource_local_to_scene = true
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yb2jh"]
 cull_mode = 2
-no_depth_test = true
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_w8rhj")
+albedo_texture = SubResource("ViewportTexture_lwciq")
 albedo_texture_force_srgb = true
+texture_filter = 1
 
 [node name="ViewportEquirectangular" type="Node3D"]
 script = ExtResource("1_wvjm1")
 scene = ExtResource("2_khplk")
-material = SubResource("StandardMaterial3D_notdn")
+transparent = 0
+alpha_scissor_threshold = 0.25
+unshaded = true
+filter = true
 
 [node name="Viewport" type="SubViewport" parent="."]
 disable_3d = true
-transparent_bg = true
 gui_embed_subwindows = true
 size = Vector2i(2048, 1024)
 render_target_update_mode = 1
@@ -44,4 +34,4 @@ render_target_update_mode = 1
 [node name="Screen" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_a5hlb")
-surface_material_override/0 = SubResource("StandardMaterial3D_mc5xk")
+surface_material_override/0 = SubResource("StandardMaterial3D_yb2jh")

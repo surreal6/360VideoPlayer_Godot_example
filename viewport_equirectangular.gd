@@ -1,4 +1,4 @@
-#@tool
+@tool
 extends Node3D
 
 
@@ -52,6 +52,19 @@ const _DIRTY_ALL			:= 0x07FF	# All dirty
 # Default layer of 1:static-world, 21:pointable, 23:ui-objects
 const DEFAULT_LAYER := 0b0000_0000_0101_0000_0000_0000_0000_0001
 
+
+# Physics property group
+@export_group("Physics")
+
+## Physical screen size property
+@export var screen_size : Vector2 = Vector2(4.0, 2.0): set = set_screen_size
+
+## Viewport collision enabled property
+@export var enabled : bool = true: set = set_enabled
+
+## Collision layer
+@export_flags_3d_physics var collision_layer : int = DEFAULT_LAYER: set = set_collision_layer
+
 # Content property group
 @export_group("Content")
 
@@ -62,10 +75,10 @@ const DEFAULT_LAYER := 0b0000_0000_0101_0000_0000_0000_0000_0001
 @export var viewport_size : Vector2 = Vector2(2048.0, 1024.0): set = set_viewport_size
 
 ## Update Mode property
-@export var update_mode : UpdateMode = UpdateMode.UPDATE_THROTTLED: set = set_update_mode
+@export var update_mode : UpdateMode = UpdateMode.UPDATE_ALWAYS: set = set_update_mode
 
 ## Update throttle property
-@export var throttle_fps : float = 25.0
+@export var throttle_fps : float = 30.0
 
 # Rendering property group
 @export_group("Rendering")
@@ -99,12 +112,12 @@ func _ready():
 	is_ready = true
 
 	# Listen for pointer events on the screen body
-#	$StaticBody3D.connect("pointer_event", _on_pointer_event)
+	#$StaticBody3D.connect("pointer_event", _on_pointer_event)
 
 	# Apply physics properties
-#	_update_screen_size()
-	_update_enabled()
-#	_update_collision_layer()
+	#_update_screen_size()
+	#_update_enabled()
+	#_update_collision_layer()
 
 	# Update the render objects
 	_update_render()
@@ -186,7 +199,8 @@ func _on_pointer_event(event : XRToolsPointerEvent) -> void:
 
 # Handler for input eventsd
 func _input(event):
-	$Viewport.push_input(event)
+	if not (event is InputEventMouseButton):
+		$Viewport.push_input(event)
 
 
 # Process event
@@ -212,6 +226,28 @@ func _process(delta):
 	else:
 		# This is no longer needed
 		set_process(false)
+
+
+## Set screen size property
+func set_screen_size(new_size: Vector2) -> void:
+	screen_size = new_size
+	if is_ready:
+		_update_screen_size()
+
+
+## Set enabled property
+func set_enabled(is_enabled: bool) -> void:
+	enabled = is_enabled
+	if is_ready:
+		_update_enabled()
+
+
+## Set collision layer property
+func set_collision_layer(new_layer: int) -> void:
+	collision_layer = new_layer
+	if is_ready:
+		_update_collision_layer()
+
 
 ## Set scene property
 func set_scene(new_scene: PackedScene) -> void:
@@ -279,11 +315,27 @@ func set_filter(new_filter: bool) -> void:
 		_update_render()
 
 
+# Screen size update handler
+func _update_screen_size() -> void:
+	$Screen.mesh.size = screen_size
+	$StaticBody3D.screen_size = screen_size
+	$StaticBody3D/CollisionShape3D.shape.extents = Vector3(
+			screen_size.x * 0.5,
+			screen_size.y * 0.5,
+			0.01)
+
 
 # Enabled update handler
 func _update_enabled() -> void:
 	if Engine.is_editor_hint():
 		return
+
+	$StaticBody3D/CollisionShape3D.disabled = !enabled
+
+
+# Collision layer update handler
+func _update_collision_layer() -> void:
+	$StaticBody3D.collision_layer = collision_layer
 
 
 # This complex function processes the render dirty flags and performs the
@@ -303,6 +355,7 @@ func _update_render() -> void:
 
 			# Disable culling
 			_screen_material.params_cull_mode = StandardMaterial3D.CULL_DISABLED
+			_screen_material.set_flag(12, true)
 
 			# Ensure local material is configured
 			_dirty |= _DIRTY_TRANSPARENCY |	\
@@ -344,7 +397,7 @@ func _update_render() -> void:
 
 		# Set the viewport size
 		$Viewport.size = viewport_size
-#		$StaticBody3D.viewport_size = viewport_size
+		#$StaticBody3D.viewport_size = viewport_size
 
 		# Update our viewport texture, it will have changed
 		_dirty |= _DIRTY_ALBEDO
