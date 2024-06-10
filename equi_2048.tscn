@@ -2,18 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://c1110kef7mtp7" path="res://viewport_equirectangular.tscn" id="1_00lao"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_x72j4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xs7yi"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0vv7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pmmu"]
 resource_local_to_scene = true
 cull_mode = 2
 depth_draw_mode = 1
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_x72j4")
+albedo_texture = SubResource("ViewportTexture_xs7yi")
 albedo_texture_force_srgb = true
 
 [node name="equi_2048" type="Node3D"]
 
 [node name="ViewportEquirectangular" parent="." instance=ExtResource("1_00lao")]
-material = SubResource("StandardMaterial3D_a0vv7")
+material = SubResource("StandardMaterial3D_6pmmu")

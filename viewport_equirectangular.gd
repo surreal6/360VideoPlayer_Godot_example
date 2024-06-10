@@ -1,6 +1,28 @@
 @tool
 extends Node3D
 
+## VIEWPORT EQUIRECTANGULAR
+## 
+## this script is basically viewport_2d_in_3d.gd with following changes to disable updates and collisions
+## 
+## change screen_size default to 4:2
+## 
+## change viewport_size default to 2048x1024
+## 
+## in func _ready:
+## 
+## 	mute staticBody3d "pointer_event" signal connection
+## 	
+## 	mute updates:
+## 		_update_screen_size()
+## 		_update_enabled()
+## 		_update_collision_layer()
+## 
+##  in func _update_render():
+## 
+## 	mute viewport_size setting...
+## 
+
 
 ## XR ToolsViewport 2D in 3D
 ##
@@ -355,7 +377,6 @@ func _update_render() -> void:
 
 			# Disable culling
 			_screen_material.params_cull_mode = StandardMaterial3D.CULL_DISABLED
-			_screen_material.set_flag(12, true)
 
 			# Ensure local material is configured
 			_dirty |= _DIRTY_TRANSPARENCY |	\

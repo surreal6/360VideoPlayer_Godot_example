@@ -1,5 +1,11 @@
 extends Control
 
+## to use this filedialog with xr tools and be able to execute double click to navigate folders
+## you need to use this branch, until PR is accepted
+##
+##
+## PR       https://github.com/GodotVR/godot-xr-tools/pull/558
+
 signal dir_selected
 
 @onready var fileLabels = $VBoxContainer2/ScrollContainer/VBoxContainer

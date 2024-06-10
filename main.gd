@@ -1,5 +1,9 @@
 extends Node3D
 
+## To run this project you need to install an alternative branch for XR Tools, until PR is accepted
+##
+## PR       https://github.com/GodotVR/godot-xr-tools/pull/558
+
 @onready var r_cont = $XROrigin3D/RightController
 @onready var l_cont = $XROrigin3D/LeftController
 @onready var fileDialogViewport = $FileSystemSelectDir/FileSystemWindow
