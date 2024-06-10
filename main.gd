@@ -52,8 +52,11 @@ func on_dir_selected(value):
 	dir_contents(value)
 	await get_tree().create_timer(0.5).timeout
 	if playlist.size() > 0:
-		videoPlayer360.loadStream(playlist[0])
-		videoPlayerFlat.loadStream(playlist[0])
+		playListIndex = 0
+		var stream = playlist[playListIndex]
+		videoPlayer360.loadStream(stream)
+		videoPlayerFlat.loadStream(stream)
+		fileDialogViewport.scene_node.modulate_label(playListIndex)
 
 func on_playlist_ready():
 	fileDialogViewport.scene_node.hide_file_dialog()
@@ -69,13 +72,16 @@ func on_controller_button_pressed(event):
 		"ax_button":
 			if playlist.size() > 0:
 				var stream = nextIndex()
+				print(stream.file)
 				videoPlayer360.loadStream(stream)
 				videoPlayerFlat.loadStream(stream)
+				fileDialogViewport.scene_node.modulate_label(playListIndex)
 		"by_button":
 			if playlist.size() > 0:
 				var stream = prevIndex()
 				videoPlayer360.loadStream(stream)
 				videoPlayerFlat.loadStream(stream)
+				fileDialogViewport.scene_node.modulate_label(playListIndex)
 		"ax_touch":
 			pass
 		"by_touch":

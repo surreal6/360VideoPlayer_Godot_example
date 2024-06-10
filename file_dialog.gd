@@ -30,3 +30,8 @@ func add_file_label(filename):
 
 func _on_button_pressed():
 	$FileDialog.show()
+
+func modulate_label(index):
+	for node in fileLabels.get_children():
+		node.set_modulate(Color(1,1,1))
+	fileLabels.get_child(index).set_modulate(Color(1,1,0))
