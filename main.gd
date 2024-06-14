@@ -16,9 +16,19 @@ var playListIndex := 0
 
 func _ready():
 	fileDialogViewport.connect_scene_signal("dir_selected", on_dir_selected)
+	fileDialogViewport.connect_scene_signal("hide_flat", on_hide_flat)
+	fileDialogViewport.connect_scene_signal("show_flat", on_show_flat)
 	
 	r_cont.connect("button_pressed", on_controller_button_pressed)
 	l_cont.connect("button_pressed", on_controller_button_pressed)
+
+func on_hide_flat():
+	$flat_screen.hide()
+	
+func on_show_flat():
+	$flat_screen.show()
+	
+
 
 func dir_contents(path):
 	playlist = []
@@ -94,4 +104,3 @@ func on_controller_button_pressed(event):
 			pass
 		"trigger_touch":
 			pass
-	

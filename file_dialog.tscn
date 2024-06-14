@@ -16,7 +16,6 @@ script = ExtResource("1_k7cat")
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
 size = Vector2i(600, 400)
-visible = true
 borderless = true
 ok_button_text = "Select Current Folder"
 file_mode = 2
@@ -49,6 +48,24 @@ size_flags_vertical = 8
 text = "Load clips from folder
 "
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="HideFlatButton" type="Button" parent="VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "hide flat video
+"
+
+[node name="ShowFlatButton" type="Button" parent="VBoxContainer2/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "show flat video
+"
+
 [node name="Label" type="Label" parent="VBoxContainer2"]
 layout_mode = 2
 text = "Press A / B to play next or previous clip"
@@ -60,3 +77,5 @@ horizontal_alignment = 1
 [connection signal="gui_focus_changed" from="FileDialog" to="." method="_on_file_dialog_gui_focus_changed"]
 [connection signal="window_input" from="FileDialog" to="." method="_on_file_dialog_window_input"]
 [connection signal="pressed" from="VBoxContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/HideFlatButton" to="." method="_on_hide_flat_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/ShowFlatButton" to="." method="_on_show_flat_button_pressed"]

@@ -7,8 +7,12 @@ extends Control
 ## PR       https://github.com/GodotVR/godot-xr-tools/pull/558
 
 signal dir_selected
+signal hide_flat
+signal show_flat
 
 @onready var fileLabels = $VBoxContainer2/ScrollContainer/VBoxContainer
+@onready var hide_flat_button = $VBoxContainer2/HBoxContainer/HideFlatButton
+@onready var show_flat_button = $VBoxContainer2/HBoxContainer/ShowFlatButton
 
 func _ready():
 	var docs_path = ProjectSettings.globalize_path("res://videos/")
@@ -41,3 +45,14 @@ func modulate_label(index):
 	for node in fileLabels.get_children():
 		node.set_modulate(Color(1,1,1))
 	fileLabels.get_child(index).set_modulate(Color(1,1,0))
+
+
+func _on_hide_flat_button_pressed():
+	hide_flat.emit()
+	hide_flat_button.hide()
+	show_flat_button.show()
+
+func _on_show_flat_button_pressed():
+	show_flat.emit()
+	show_flat_button.hide()
+	hide_flat_button.show()
