@@ -7,14 +7,13 @@
 radius = 50.0
 height = 100.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_lwciq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_e4jnp"]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yb2jh"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o52g0"]
 cull_mode = 2
 shading_mode = 0
-albedo_texture = SubResource("ViewportTexture_lwciq")
-albedo_texture_force_srgb = true
+albedo_texture = SubResource("ViewportTexture_e4jnp")
 texture_filter = 1
 
 [node name="ViewportEquirectangular" type="Node3D"]
@@ -34,4 +33,4 @@ render_target_update_mode = 1
 [node name="Screen" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_a5hlb")
-surface_material_override/0 = SubResource("StandardMaterial3D_yb2jh")
+surface_material_override/0 = SubResource("StandardMaterial3D_o52g0")

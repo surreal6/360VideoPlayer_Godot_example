@@ -15,11 +15,12 @@ signal show_flat
 @onready var show_flat_button = $VBoxContainer2/HBoxContainer/ShowFlatButton
 
 func _ready():
-	var docs_path = ProjectSettings.globalize_path("res://videos/")
-	$FileDialog.current_path = docs_path
-	$FileDialog.set_filters(PackedStringArray(["*.ogv"]))
-	await get_tree().create_timer(0.5).timeout
-	dir_selected.emit(docs_path)
+	var docs_path = ProjectSettings.globalize_path("user://")
+	if OS.request_permissions():
+		$FileDialog.current_path = docs_path
+		$FileDialog.set_filters(PackedStringArray(["*.ogv"]))
+		await get_tree().create_timer(0.5).timeout
+		dir_selected.emit(docs_path)
 
 func on_dir_selected_signal(value):
 	dir_selected.emit(value)
